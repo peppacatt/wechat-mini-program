@@ -3,20 +3,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <groupId>com.peppacatt.wechat</groupId>
+        <artifactId>w-account</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.peppacatt.wechat</groupId>
+
     <artifactId>w-account-chat</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>w-account-chat</name>
-    <description>w-account-chat</description>
+
     <properties>
-        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>com.peppacatt.wechat</groupId>
+            <artifactId>w-account-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--web开发的场景启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -28,29 +34,25 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <!-- hutoll工具类 -->
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.22</version>
         </dependency>
         <!-- slf4j日志 -->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <!-- dom4j 解析xml工具 -->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
+        <!-- springboottest -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <!-- dom4j 解析xml工具 -->
-        <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
-        <dependency>
-            <groupId>org.dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>2.1.4</version>
         </dependency>
     </dependencies>
     <build>
