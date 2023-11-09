@@ -2,6 +2,8 @@ package com.peppacatt.wechat.chat.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.peppacatt.wechat.chat.service.WeChatService;
+import com.peppacatt.wechat.entity.vo.TextMsg;
+import com.thoughtworks.xstream.XStream;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -81,22 +83,25 @@ public class WeChatServiceImpl implements WeChatService {
         for (Element element : elements) {
             map.put(element.getName(), element.getStringValue());
         }
-        System.out.println(map);
-        return replyMsg();
+        return replyMsg(map);
     }
 
     /**
      * 被动回复用户消息
      *
-     * @return
+     * @param map map
+     * @return 消息
      */
-    private String replyMsg() {
-        return String.format("<xml>\n" +
-                "  <ToUserName><![CDATA[%s]]></ToUserName>\n" +
-                "  <FromUserName><![CDATA[%s]]></FromUserName>\n" +
-                "  <CreateTime>%d</CreateTime>\n" +
-                "  <MsgType><![CDATA[%s]]></MsgType>\n" +
-                "  <Content><![CDATA[%s]]></Content>\n" +
-                "</xml>", "oRvWB6R8twtTH3ON1Z40bs8wBDtw", "gh_28f994e163a8", new Date().getTime(), "text", "我回复了一条消息");
+    private String replyMsg(Map<String, String> map) {
+        TextMsg textMsg = new TextMsg()
+                .setToUserName(map.get("FromUserName"))
+                .setFromUserName(map.get("ToUserName"))
+                .setCreateTime(new Date().getTime())
+                .setMsgType("text")
+                .setContent("我回复了一条消息");
+        // 转为xml字符串
+        XStream xStream = new XStream();
+        xStream.processAnnotations(TextMsg.class);
+        return xStream.toXML(textMsg);
     }
 }

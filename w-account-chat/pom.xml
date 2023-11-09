@@ -18,12 +18,13 @@
     </properties>
 
     <dependencies>
+        <!-- w-account-entity -->
         <dependency>
             <groupId>com.peppacatt.wechat</groupId>
             <artifactId>w-account-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--web开发的场景启动器 -->
+        <!-- web开发的场景启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -47,6 +48,11 @@
         <dependency>
             <groupId>org.dom4j</groupId>
             <artifactId>dom4j</artifactId>
+        </dependency>
+        <!-- xml和bean对象转换工具 -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
         </dependency>
         <!-- springboottest -->
         <dependency>

@@ -43,7 +43,6 @@ public class WeChatController {
      */
     @PostMapping("/")
     public String receiveMsg(HttpServletRequest request) {
-        log.info("接收到消息了");
         return weChatService.receiveMsg(request);
     }
 }
