@@ -4,6 +4,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * 消息实体类
+ */
 @Data
 @Accessors(chain = true)
 @XStreamAlias("xml")
