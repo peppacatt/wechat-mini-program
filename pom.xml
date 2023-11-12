@@ -23,6 +23,7 @@
         <hutool.version>5.8.22</hutool.version>
         <dom4j.version>2.1.4</dom4j.version>
         <xstream.version>1.4.20</xstream.version>
+        <fastjson.version>2.0.42</fastjson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -44,7 +45,12 @@
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
             </dependency>
-
+            <!-- fastjson2 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

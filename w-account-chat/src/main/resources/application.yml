@@ -1,4 +1,6 @@
 server:
   port: 8080
 wechat:
-  token: "peppacatt_waccount"
+  token: peppacatt_waccount
+  app-id: wx01371d0396412c92
+  appsecret: af6e358115d04b621883e17a3ceea76a
