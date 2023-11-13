@@ -1,5 +1,6 @@
 package com.peppacatt.wechat.chat.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,11 @@ public class AccessTokenBean {
     public String getAccessToken() {
         // 为避免反复获取accessToken, 需要判断判断过期时间, 即过期之后再重新获取
         long now = new Date().getTime();
-        if (expireTime <= now) {
+        String accessToken = accessTokenObj.getString("access_token");
+        if (StrUtil.isEmpty(accessToken) || expireTime <= now) {
             refreshAccessToken();
         }
-        return accessTokenObj.getString("access_token");
+        return accessToken;
     }
 
     /**

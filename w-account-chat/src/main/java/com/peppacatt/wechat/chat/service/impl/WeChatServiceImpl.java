@@ -2,6 +2,7 @@ package com.peppacatt.wechat.chat.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.peppacatt.wechat.chat.service.WeChatService;
+import com.peppacatt.wechat.entity.button.Button;
 import com.peppacatt.wechat.entity.vo.TextMsg;
 import com.thoughtworks.xstream.XStream;
 import jakarta.servlet.ServletInputStream;
@@ -103,5 +104,11 @@ public class WeChatServiceImpl implements WeChatService {
         XStream xStream = new XStream();
         xStream.processAnnotations(TextMsg.class);
         return xStream.toXML(textMsg);
+    }
+
+    // 创建菜单
+    private void createButton(){
+        // 创建一级菜单
+        Button button = new Button();
     }
 }
