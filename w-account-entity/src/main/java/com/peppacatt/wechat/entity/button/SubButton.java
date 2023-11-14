@@ -1,14 +1,15 @@
 package com.peppacatt.wechat.entity.button;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 /**
  * 二级菜单按钮
  */
-@Data
-public class SubButton {
-    private String name;
+public class SubButton extends AbstractButton {
+    @Getter
+    @Setter
     private List<AbstractButton> buttons;
 }

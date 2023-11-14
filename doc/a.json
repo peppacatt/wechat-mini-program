@@ -1,0 +1,29 @@
+{
+  "buttons": [
+    {
+      "key": "1",
+      "name": "1",
+      "type": "click"
+    },
+    {
+      "name": "2",
+      "type": "view",
+      "url": "https://www.csdn.net/"
+    },
+    {
+      "buttons": [
+        {
+          "name": "31",
+          "type": "view",
+          "url": "https://www.csdn.net/"
+        },
+        {
+          "name": "32",
+          "type": "view",
+          "url": "https://www.csdn.net/"
+        }
+      ],
+      "name": "3"
+    }
+  ]
+}

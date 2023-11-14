@@ -1,8 +1,9 @@
 package com.peppacatt.wechat.chat.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
+import com.alibaba.fastjson2.JSONObject;
 import com.peppacatt.wechat.chat.service.WeChatService;
-import com.peppacatt.wechat.entity.button.Button;
+import com.peppacatt.wechat.entity.button.*;
 import com.peppacatt.wechat.entity.vo.TextMsg;
 import com.thoughtworks.xstream.XStream;
 import jakarta.servlet.ServletInputStream;
@@ -107,8 +108,44 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
     // 创建菜单
-    private void createButton(){
+    private static Button createButton() {
         // 创建一级菜单
         Button button = new Button();
+        List<AbstractButton> buttons = new ArrayList<>();
+        // 一级菜单中的第一个按钮
+        ClickButton button1 = new ClickButton();
+        button1.setName("1");
+        button1.setKey("1");
+        // 一级菜单中的第二个按钮
+        ViewButton button2 = new ViewButton();
+        button2.setName("2");
+        button2.setUrl("https://www.csdn.net/");
+        // 一级菜单中的第三个按钮
+        SubButton button3 = new SubButton();
+        List<AbstractButton> buttons3 = new ArrayList<>();
+        button3.setName("3");
+        button3.setButtons(buttons3);
+        // 一级菜单中的3.1个按钮
+        ViewButton button31 = new ViewButton();
+        button31.setName("31");
+        button31.setUrl("https://www.csdn.net/");
+        // 一级菜单中的3.2个按钮
+        ViewButton button32 = new ViewButton();
+        button32.setName("32");
+        button32.setUrl("https://www.csdn.net/");
+        // 组成二级菜单
+        buttons3.add(button31);
+        buttons3.add(button32);
+        // 组成一级菜单
+        buttons.add(button1);
+        buttons.add(button2);
+        buttons.add(button3);
+        button.setButtons(buttons);
+        return button;
+    }
+
+    public static void main(String[] args) {
+        JSONObject buttonObj = JSONObject.from(createButton());
+        System.out.println(buttonObj);
     }
 }
