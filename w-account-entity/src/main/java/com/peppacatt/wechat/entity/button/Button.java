@@ -9,5 +9,5 @@ import java.util.List;
  */
 @Data
 public class Button {
-    private List<AbstractButton> buttons;
+    private List<AbstractButton> button;
 }

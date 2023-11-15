@@ -26,7 +26,7 @@ public class AccessTokenBean {
     @Autowired
     private RestTemplate restTemplate;
 
-    private JSONObject accessTokenObj;
+    private JSONObject accessTokenObj = new JSONObject();
 
     /**
      * accessToken过期时间
@@ -41,11 +41,11 @@ public class AccessTokenBean {
     public String getAccessToken() {
         // 为避免反复获取accessToken, 需要判断判断过期时间, 即过期之后再重新获取
         long now = new Date().getTime();
-        String accessToken = accessTokenObj.getString("access_token");
-        if (StrUtil.isEmpty(accessToken) || expireTime <= now) {
+        if (StrUtil.isEmpty(accessTokenObj.getString("access_token")) || expireTime <= now) {
             refreshAccessToken();
         }
-        return accessToken;
+        System.out.printf("accessToken: %s\n", accessTokenObj.getString("access_token"));
+        return accessTokenObj.getString("access_token");
     }
 
     /**

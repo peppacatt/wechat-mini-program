@@ -1,8 +1,7 @@
 package com.peppacatt.wechat.chat.controller;
 
-import com.peppacatt.wechat.chat.api.PeppaApi;
-import com.peppacatt.wechat.chat.service.WeChatService;
 import com.peppacatt.wechat.chat.config.AccessTokenBean;
+import com.peppacatt.wechat.chat.service.WeChatService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,7 @@ public class WeChatController {
     private WeChatService weChatService;
 
     @Autowired
-    private PeppaApi peppaApi;
-
-    @Autowired
     private AccessTokenBean accessTokenBean;
-
-    @GetMapping("/xx")
-    public String xx() {
-        return accessTokenBean.getAccessToken();
-    }
 
     /**
      * 验证消息的确来自微信服务器

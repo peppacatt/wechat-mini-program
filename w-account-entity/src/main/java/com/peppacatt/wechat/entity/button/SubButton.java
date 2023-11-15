@@ -11,5 +11,5 @@ import java.util.List;
 public class SubButton extends AbstractButton {
     @Getter
     @Setter
-    private List<AbstractButton> buttons;
+    private List<AbstractButton> sub_button;
 }
