@@ -25,7 +25,6 @@ public class MenuServiceImpl implements MenuService {
      */
     public JSONObject creatMenu() {
         JSONObject buttonObj = JSONObject.from(createButton());
-        System.out.println(buttonObj);
         return weChatApi.creatMenu(buttonObj);
     }
 

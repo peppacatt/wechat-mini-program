@@ -59,7 +59,7 @@ public class AccessTokenBean {
         try {
             accessTokenObj = restTemplate.getForObject(url, JSONObject.class);
         } catch (RestClientException e) {
-            log.error("request accessToken fail!");
+            log.error("Request accessToken fail!");
             return;
         }
         expireTime = (accessTokenObj.getLongValue("expires_in") * 1000L) + new Date().getTime();

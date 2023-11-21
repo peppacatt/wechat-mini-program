@@ -1,10 +1,8 @@
 package com.peppacatt.wechat.chat.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import com.alibaba.fastjson2.JSONObject;
 import com.peppacatt.wechat.chat.config.AccessTokenBean;
 import com.peppacatt.wechat.chat.service.WeChatService;
-import com.peppacatt.wechat.entity.button.*;
 import com.peppacatt.wechat.entity.vo.TextMsg;
 import com.thoughtworks.xstream.XStream;
 import jakarta.servlet.ServletInputStream;
@@ -55,10 +53,10 @@ public class WeChatServiceImpl implements WeChatService {
         String sha1Str = SecureUtil.sha1(mySignatureStr.toString());
         // 3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
         if (signature.equals(sha1Str)) {
-            log.info("验证微信服务器成功！");
+            log.info("Verification of WeChat server successful！");
             return echostr;
         } else {
-            log.error("验证微信服务器失败, sinature: {}, mySignature: {}", signature, sha1Str);
+            log.error("Failed to verify WeChat server! sinature: {}, mySignature: {}", signature, sha1Str);
             return null;
         }
     }
@@ -75,7 +73,7 @@ public class WeChatServiceImpl implements WeChatService {
         try {
             inputStream = request.getInputStream();
         } catch (IOException e) {
-            log.error("getInputStream fail! ex: {}", e.getMessage());
+            log.error("GetInputStream fail! ex: {}", e.getMessage());
             return null;
         }
         // 解析xml
@@ -84,7 +82,7 @@ public class WeChatServiceImpl implements WeChatService {
         try {
             document = saxReader.read(inputStream);
         } catch (DocumentException e) {
-            log.error("read inputStream fail! ex: {}", e.getMessage());
+            log.error("Read inputStream fail! ex: {}", e.getMessage());
             return null;
         }
         Element rootElement = document.getRootElement();
@@ -93,6 +91,7 @@ public class WeChatServiceImpl implements WeChatService {
         for (Element element : elements) {
             map.put(element.getName(), element.getStringValue());
         }
+        log.info("Received the message: {}", map);
         return replyMsg(map);
     }
 
@@ -103,12 +102,70 @@ public class WeChatServiceImpl implements WeChatService {
      * @return 消息
      */
     private String replyMsg(Map<String, String> map) {
+        String msgType = map.get("MsgType");
+        String replyMsg;
+        switch (msgType) {
+            case "text" -> replyMsg = handleMsgTypeText(map);
+            case "event" -> replyMsg = handleMsgTypeEvent(map);
+            default -> {
+                replyMsg = String.format("Unable to match this [%s]!", "MsgType");
+                log.error(replyMsg);
+            }
+        }
+        return replyMsg;
+    }
+
+    /**
+     * 处理MsgType:text类型消息
+     *
+     * @param map map
+     * @return String
+     */
+    private String handleMsgTypeText(Map<String, String> map) {
         TextMsg textMsg = new TextMsg()
                 .setToUserName(map.get("FromUserName"))
                 .setFromUserName(map.get("ToUserName"))
                 .setCreateTime(new Date().getTime())
                 .setMsgType("text")
-                .setContent("我回复了一条消息");
+                .setContent("回复了text类型消息");
+        // 转为xml字符串
+        XStream xStream = new XStream();
+        xStream.processAnnotations(TextMsg.class);
+        return xStream.toXML(textMsg);
+    }
+
+    /**
+     * 处理MsgType:event类型消息
+     *
+     * @param map map
+     * @return String
+     */
+    private String handleMsgTypeEvent(Map<String, String> map) {
+        String event = map.get("Event");
+        String replyEventMsg;
+        switch (event) {
+            case "CLICK" -> replyEventMsg = handleEventClick(map);
+            default -> {
+                replyEventMsg = String.format("Unable to match this [%s]!", "Event");
+                log.error(replyEventMsg);
+            }
+        }
+        return replyEventMsg;
+    }
+
+    /**
+     * 处理MsgType:event -> Event:CLICK类型消息
+     *
+     * @param map map
+     * @return String
+     */
+    private String handleEventClick(Map<String, String> map) {
+        TextMsg textMsg = new TextMsg()
+                .setToUserName(map.get("FromUserName"))
+                .setFromUserName(map.get("ToUserName"))
+                .setCreateTime(new Date().getTime())
+                .setMsgType("text")
+                .setContent("回复了event类型消息");
         // 转为xml字符串
         XStream xStream = new XStream();
         xStream.processAnnotations(TextMsg.class);
