@@ -14,16 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
  * 微信公众号重要逻辑controller
  */
 @RestController
-@Slf4j
 public class WeChatController {
     @Value("${wechat.token}")
     private String wechatToken;
 
     @Autowired
     private WeChatService weChatService;
-
-    @Autowired
-    private AccessTokenBean accessTokenBean;
 
     /**
      * 验证消息的确来自微信服务器

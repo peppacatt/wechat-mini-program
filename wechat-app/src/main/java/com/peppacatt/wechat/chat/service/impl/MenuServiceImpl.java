@@ -28,12 +28,20 @@ public class MenuServiceImpl implements MenuService {
         return weChatApi.creatMenu(buttonObj);
     }
 
-    /**
-     * 创建菜单
-     *
-     * @return Button
-     */
     private Button createButton() {
+        // 创建一级菜单
+        Button button = new Button();
+        List<AbstractButton> buttons = new ArrayList<>();
+        // 一级菜单中的第一个按钮
+        ClickButton button1 = new ClickButton();
+        button1.setName("今日头条");
+        button1.setKey("top10");
+        button.setButton(buttons);
+        return button;
+    }
+
+
+    private Button createButtonDemo() {
         // 创建一级菜单
         Button button = new Button();
         List<AbstractButton> buttons = new ArrayList<>();

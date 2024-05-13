@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.peppacatt.wechat</groupId>
-        <artifactId>w-account</artifactId>
+        <artifactId>wechat-mini-program</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>w-account-entity</artifactId>
+    <artifactId>wechat-entity</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.peppacatt.wechat</groupId>
-        <artifactId>w-account</artifactId>
+        <artifactId>wechat-mini-program</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>w-account-chat</artifactId>
+    <artifactId>wechat-app</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,7 +21,7 @@
         <!-- w-account-entity -->
         <dependency>
             <groupId>com.peppacatt.wechat</groupId>
-            <artifactId>w-account-entity</artifactId>
+            <artifactId>wechat-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- web开发的场景启动器 -->

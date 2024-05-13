@@ -9,18 +9,18 @@
         <relativePath/>
     </parent>
     <groupId>com.peppacatt.wechat</groupId>
-    <artifactId>w-account</artifactId>
+    <artifactId>wechat-mini-program</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>w-account</name>
-    <description>w-account</description>
+    <name>wechat-mini-program</name>
+    <description>wechat-mini-program</description>
     <modules>
-        <module>w-account-chat</module>
-        <module>w-account-entity</module>
+        <module>wechat-app</module>
+        <module>wechat-entity</module>
     </modules>
     <properties>
         <java.version>17</java.version>
-        <hutool.version>5.8.22</hutool.version>
+        <hutool.version>5.8.25</hutool.version>
         <dom4j.version>2.1.4</dom4j.version>
         <xstream.version>1.4.20</xstream.version>
         <fastjson.version>2.0.42</fastjson.version>
