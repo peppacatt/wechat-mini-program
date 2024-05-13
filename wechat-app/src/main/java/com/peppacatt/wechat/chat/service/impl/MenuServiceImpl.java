@@ -18,11 +18,7 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private WeChatApi weChatApi;
 
-    /**
-     * 手动调用该接口来创建菜单
-     *
-     * @return JSONObject
-     */
+    @Override
     public JSONObject creatMenu() {
         JSONObject buttonObj = JSONObject.from(createButton());
         return weChatApi.creatMenu(buttonObj);
@@ -36,6 +32,7 @@ public class MenuServiceImpl implements MenuService {
         ClickButton button1 = new ClickButton();
         button1.setName("今日头条");
         button1.setKey("top10");
+        buttons.add(button1);
         button.setButton(buttons);
         return button;
     }

@@ -21,7 +21,7 @@ public class MenuController {
      *
      * @return JSONObject
      */
-    @GetMapping("create")
+    @GetMapping("/create")
     private JSONObject creatMenu() {
         return menuService.creatMenu();
     }

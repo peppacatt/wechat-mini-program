@@ -31,7 +31,7 @@ public class WeChatController {
      * @return echostr 入参echostr
      */
     @GetMapping("/")
-    public String verify(String signature, String timestamp, String nonce, String echostr) {
+    public String connect(String signature, String timestamp, String nonce, String echostr) {
         return weChatService.verify(signature, timestamp, nonce, echostr, wechatToken);
     }
 

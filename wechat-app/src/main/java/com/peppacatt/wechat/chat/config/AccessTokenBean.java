@@ -41,11 +41,12 @@ public class AccessTokenBean {
     public String getAccessToken() {
         // 为避免反复获取accessToken, 需要判断判断过期时间, 即过期之后再重新获取
         long now = new Date().getTime();
-        if (StrUtil.isEmpty(accessTokenObj.getString("access_token")) || expireTime <= now) {
+        String accessToken = accessTokenObj.getString("access_token");
+        if (StrUtil.isEmpty(accessToken) || expireTime <= now) {
             refreshAccessToken();
         }
-        System.out.printf("accessToken: %s\n", accessTokenObj.getString("access_token"));
-        return accessTokenObj.getString("access_token");
+        log.info("accessToken:{}", accessToken);
+        return accessToken;
     }
 
     /**

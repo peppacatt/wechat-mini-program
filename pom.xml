@@ -9,11 +9,11 @@
         <relativePath/>
     </parent>
     <groupId>com.peppacatt.wechat</groupId>
-    <artifactId>wechat-mini-program</artifactId>
+    <artifactId>wechat-official-account</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>wechat-mini-program</name>
-    <description>wechat-mini-program</description>
+    <description>wechat-official-account</description>
     <modules>
         <module>wechat-app</module>
         <module>wechat-entity</module>
