@@ -31,7 +31,7 @@ public class MenuServiceImpl implements MenuService {
         // 一级菜单中的第一个按钮
         ClickButton button1 = new ClickButton();
         button1.setName("今日头条");
-        button1.setKey("top10");
+        button1.setKey("touTiao");
         buttons.add(button1);
         button.setButton(buttons);
         return button;

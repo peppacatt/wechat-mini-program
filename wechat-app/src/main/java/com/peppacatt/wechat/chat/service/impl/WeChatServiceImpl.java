@@ -31,16 +31,7 @@ public class WeChatServiceImpl implements WeChatService {
     @Autowired
     private RestTemplate restTemplate;
 
-    /**
-     * 验证消息的确来自微信服务器
-     *
-     * @param signature   微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
-     * @param timestamp   时间戳
-     * @param nonce       随机数
-     * @param echostr     如果验证成功,原样返回该值
-     * @param wechatToken 微信公众号自己设置的Token
-     * @return echostr 入参echostr
-     */
+    @Override
     public String verify(String signature, String timestamp, String nonce, String echostr, String wechatToken) {
         // 1）将token、timestamp、nonce三个参数进行字典序排序
         List<String> mySignatures = Arrays.asList(wechatToken, timestamp, nonce);
@@ -61,12 +52,7 @@ public class WeChatServiceImpl implements WeChatService {
         }
     }
 
-    /**
-     * 接收微信服务器的消息
-     *
-     * @param request request
-     * @return 回复的消息
-     */
+    @Override
     public String receiveMsg(HttpServletRequest request) {
         // 获取inputStream
         ServletInputStream inputStream;
@@ -91,7 +77,7 @@ public class WeChatServiceImpl implements WeChatService {
         for (Element element : elements) {
             map.put(element.getName(), element.getStringValue());
         }
-        log.info("Received the message: {}", map);
+        log.info("received: {}", map);
         return replyMsg(map);
     }
 
@@ -105,8 +91,8 @@ public class WeChatServiceImpl implements WeChatService {
         String msgType = map.get("MsgType");
         String replyMsg;
         switch (msgType) {
-            case "text" -> replyMsg = handleMsgTypeText(map);
-            case "event" -> replyMsg = handleMsgTypeEvent(map);
+            case "text" -> replyMsg = handleText(map);
+            case "event" -> replyMsg = handleEvent(map);
             default -> {
                 replyMsg = String.format("Unable to match this [%s]!", "MsgType");
                 log.error(replyMsg);
@@ -121,7 +107,7 @@ public class WeChatServiceImpl implements WeChatService {
      * @param map map
      * @return String
      */
-    private String handleMsgTypeText(Map<String, String> map) {
+    private String handleText(Map<String, String> map) {
         TextMsg textMsg = new TextMsg()
                 .setToUserName(map.get("FromUserName"))
                 .setFromUserName(map.get("ToUserName"))
@@ -140,7 +126,7 @@ public class WeChatServiceImpl implements WeChatService {
      * @param map map
      * @return String
      */
-    private String handleMsgTypeEvent(Map<String, String> map) {
+    private String handleEvent(Map<String, String> map) {
         String event = map.get("Event");
         String replyEventMsg;
         switch (event) {
@@ -160,12 +146,17 @@ public class WeChatServiceImpl implements WeChatService {
      * @return String
      */
     private String handleEventClick(Map<String, String> map) {
+        String replyStr = "回复了event类型消息";
+        if (map.get("EventKey").equals("touTiao")) {
+            replyStr = "今日头条:1.xxx,2xxx,3xxx......";
+        }
+        // 封装回复消息
         TextMsg textMsg = new TextMsg()
                 .setToUserName(map.get("FromUserName"))
                 .setFromUserName(map.get("ToUserName"))
                 .setCreateTime(new Date().getTime())
                 .setMsgType("text")
-                .setContent("回复了event类型消息");
+                .setContent(replyStr);
         // 转为xml字符串
         XStream xStream = new XStream();
         xStream.processAnnotations(TextMsg.class);
